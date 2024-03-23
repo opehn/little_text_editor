@@ -1,0 +1,6 @@
+/backend/build
+/backend/.env
+/backend/settings.ts
+node_modules/
+.kube/
+.DS_Store
