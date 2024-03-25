@@ -22,7 +22,7 @@ export const createNote: RequestHandler = async (req, res, next) => {
         const { title, content } = req.body;
         const userId: number = req.user.userId;
         await noteModel.createNote(userId, title, content);
-        res.status(201).json({ message: 'Success' });
+        res.status(201).json({ message: '노트가 성공적으로 생성되었습니다.' });
     } catch (e) {
         console.log(e)
         res.status(500);
