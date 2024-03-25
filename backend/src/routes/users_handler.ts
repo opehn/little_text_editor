@@ -25,12 +25,14 @@ const login: RequestHandler = async (req, res, next) => {
         let { email, password } = req.body;
         const secretKey = process.env.JWT_SECRET || 'defaultSercretKey';
         if (await User.validateUser(email, password)) {
-            const accessToken = jwt.sign({ email }, secretKey, { expiresIn: '14d' });
+            const userId = await User.getUserIdByEmail(email)
+            const accessToken = jwt.sign({ userId: userId }, secretKey, { expiresIn: '14d' });
             res.cookie('access-token', accessToken, makeCookieOpt());
-            res.sendStatus(204);
+            res.status(204).json({ message: 'Success' });
         }
     } catch (e) {
-        res.sendStatus(500);
+        console.log(e)
+        res.status(500).json({ message: 'Server Error' });
     }
 }
 
@@ -41,16 +43,16 @@ const join: RequestHandler = async (req, res, next) => {
         await User.createUser(email, password);
     } catch (e: any) {
         if (isQueryError(e) && e.code === 'ER_DUP_ENTRY') {
-            return res.sendStatus(409);
+            return res.status(409).json({ message: 'Duplicate' });
         }
         throw e;
     }
-    res.sendStatus(201);
+    res.status(201).json({ message: 'Success' });
 }
 
 const logout: RequestHandler = async (req, res, next) => {
     res.clearCookie('access-token');
-    res.sendStatus(200);
+    res.status(200).json({ message: 'Success' });
 }
 
 export { login, join, logout };

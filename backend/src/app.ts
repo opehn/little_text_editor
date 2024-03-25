@@ -1,6 +1,7 @@
 import express, { NextFunction, Request, Response } from 'express';
 import "express-async-errors";
 import userRouter from './routes/users';
+import noteRouter from './routes/notes';
 import cookieParser from 'cookie-parser';
 
 const app = express();
@@ -14,6 +15,7 @@ app.use((req: Request, res: Response, next: NextFunction) => {
 app.use(express.urlencoded({ extended: true }));
 
 app.use('/', userRouter);
+app.use('/', noteRouter);
 
 app.use((err: unknown, req: Request, res: Response, next: NextFunction) => {
     console.error(err);

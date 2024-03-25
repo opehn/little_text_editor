@@ -1,9 +1,11 @@
 import jwt from 'jsonwebtoken'
 import { RequestHandler } from "express";
 
-const authenticateUser: RequestHandler = async (req, res, next) => {
+export const authenticateUser: RequestHandler = async (req, res, next) => {
     const accessToken = req.cookies["access-token"];
-    const secretKey = 'soije';
+    const secretKey = process.env.JWT_SECRET;
+    if (!secretKey)
+        return;
 
     if (!accessToken) {
         return res.sendStatus(401);
@@ -11,6 +13,7 @@ const authenticateUser: RequestHandler = async (req, res, next) => {
     let decoded: any = jwt.verify(accessToken, secretKey);
     if (!decoded)
         return res.sendStatus(401);
-    req.user = decoded.email;
+    const userToken = { userId: decoded.userId };
+    req.user = userToken;
     return next();
 }
