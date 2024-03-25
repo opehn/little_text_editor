@@ -15,6 +15,13 @@ declare global {
 export interface Note {
     id: number;
     title: string;
+    created_at: Date;
+    updated_at: Date;
+}
+
+export interface NoteDetail {
+    id: number;
+    title: string;
     content: string;
     created_at: Date;
     updated_at: Date;

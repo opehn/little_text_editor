@@ -2,6 +2,7 @@ import jwt from 'jsonwebtoken'
 import { RequestHandler } from "express";
 
 export const authenticateUser: RequestHandler = async (req, res, next) => {
+    console.log('there')
     const accessToken = req.cookies["access-token"];
     const secretKey = process.env.JWT_SECRET;
     if (!secretKey)

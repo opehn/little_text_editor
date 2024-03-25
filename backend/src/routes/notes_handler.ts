@@ -28,3 +28,27 @@ export const createNote: RequestHandler = async (req, res, next) => {
         res.status(500);
     }
 }
+
+export const getOneNote: RequestHandler = async (req, res, next) => {
+    try {
+        const noteId = parseInt(req.params.id);
+        const result = await noteModel.getOneNoteById(noteId);
+        res.status(200).json(result);
+    } catch (e) {
+        console.log(e);
+        res.status(500);
+    }
+}
+
+export const updateNote: RequestHandler = async (req, res, next) => {
+    try {
+        const noteId = parseInt(req.params.id);
+        const { title, content } = req.body;
+
+        await noteModel.updateNote(noteId, title, content);
+        res.status(200).json({ message: "노트가 성공적으로 수정되었습니다." })
+
+    } catch (e) {
+
+    }
+}
