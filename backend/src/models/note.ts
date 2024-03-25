@@ -69,4 +69,17 @@ async function updateNote(noteId: number, title: string, content: string): Promi
     }
 }
 
-export default { selectNoteByUserId, createNote, getOneNoteById, updateNote };
+async function deleteNote(noteId: number): Promise<void> {
+    const conn = await createConnection();
+    try {
+        const sql: string = `DELETE FROM notes WHERE id = ? `;
+        const result = await conn.query(sql, [noteId]);
+        console.log(result);
+    } catch (e) {
+        throw e;
+    } finally {
+        conn.end();
+    }
+}
+
+export default { selectNoteByUserId, createNote, getOneNoteById, updateNote, deleteNote };

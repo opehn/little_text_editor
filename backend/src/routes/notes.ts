@@ -1,7 +1,7 @@
 import express = require('express');
 const router = express.Router();
 import { authenticateUser } from '../middlewares/authentication';
-import { getNote, getOneNote, createNote, updateNote } from './notes_handler';
+import { getNote, getOneNote, createNote, updateNote, deleteNote } from './notes_handler';
 
 router.get('/', [authenticateUser], getNote);
 
@@ -11,6 +11,6 @@ router.post('/', [authenticateUser], createNote);
 
 router.put('/:id', updateNote);
 
-router.delete(':id');
+router.delete('/:id', deleteNote);
 
 export default router;
