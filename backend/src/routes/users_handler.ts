@@ -55,4 +55,8 @@ const logout: RequestHandler = async (req, res, next) => {
     res.status(200).json({ message: '로그아웃 되었습니다' });
 }
 
-export { login, join, logout };
+const healthCheck: RequestHandler = async (req, res, next) => {
+    res.status(204);
+}
+
+export { login, join, logout, healthCheck };

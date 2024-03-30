@@ -1,6 +1,6 @@
 import express = require('express');
 const router = express.Router();
-import { login, join, logout } from './users_handler'
+import { login, join, logout, healthCheck } from './users_handler'
 
 router.post('/login', login);
 
@@ -10,5 +10,6 @@ router.get('/logout', logout);
 router.post('/users', join);
 
 router.get('/users/me', [],);
+router.get('/healthcheck', healthCheck);
 
 export default router;
